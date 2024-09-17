@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+}
+
+.slogin {
+    width: 300px;
+    padding: 30px;
+    background-color: rgb(188, 235, 235);
+    border-radius: 10px; /* Optional: adds rounded corners to the form container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: adds a subtle shadow */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px; /* Add space below the heading */
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form label, .form input {
+    margin-bottom: 20px;
+}
+
+.form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background-color: #0056b3;
+}
+
+
+.home-button {
+    display: block;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 20px; /* Space between button and form */
+    padding: 10px;
+    background-color: #589be2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+}
+

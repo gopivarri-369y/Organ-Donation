@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Your Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Detail</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>College</strong></td>
+                <td><%= college %></td>
+            </tr>
+            <tr>
+                <td><strong>Rooms For</strong></td>
+                <td><%= roomsFor %></td>
+            </tr>
+            <tr>
+                <td><strong>Rent for 2-share</strong></td>
+                <td>$<%= roomRent.rent2Share %></td>
+            </tr>
+            <tr>
+                <td><strong>Rent for 3-share</strong></td>
+                <td>$<%= roomRent.rent3Share %></td>
+            </tr>
+            <tr>
+                <td><strong>Rent for 4-share</strong></td>
+                <td>$<%= roomRent.rent4Share %></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
