@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Home Button at the Top -->
-    <a href="home.html" class="home-button">Home</a>
+    <a href="/" class="home-button">Home</a>
 
     <!-- Centered Registration Form Container -->
     <div class="container">
@@ -45,8 +45,10 @@
                 
                 <label for="collage">Nearest Collage :</label>
                 <input type="text" placeholder="Enter the Nearest College name" id="collage" name="collage" class="collage" required>
+                <label for="pincode">Enter your pincode:</label>
+                <input type="number" placeholder="Enter the pincode" id="pincode" name="pincode" class="pincode" required>
                 
-                <label for="collage">Hostel Name :</label>
+                <label for="Hostel">Hostel Name :</label>
                 <input type="text" placeholder="Enter the Hostel name" id="Hostel" name="Hostel" class="Hostel" required>
                 
                 <label >
@@ -95,5 +97,22 @@
             </form>
         </div>
     </div>
+    <script>
+        let submit = document.querySelector('button');
+        submit.addEventListener('mouseenter',function(){
+            submit.style.backgroundColor = "#0056b3";
+        });
+        submit.addEventListener('mouseleave',function(){
+            submit.style.backgroundColor="";
+        })
+        let homebutton = document.querySelector('.home-button');
+        homebutton.addEventListener('mouseenter',function(){
+            homebutton.style.backgroundColor = "#0056b3";
+        });
+        homebutton.addEventListener('mouseleave',function(){
+            homebutton.style.backgroundColor="";
+        })
+    </script>
 </body>
 </html>
+<!-- home-button -->

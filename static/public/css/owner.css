@@ -12,16 +12,14 @@ body {
     margin-top: 20px; /* Space above the button */
     margin-bottom: 20px;
     padding: 10px 20px;
-    background-color: #589be2; /* Button background color */
+    background-color: #4CAF50; /* Button background color */
     color: white; /* Button text color */
     text-decoration: none; /* Remove underline */
     border-radius: 5px; /* Rounded corners for button */
     font-size: 18px; /* Font size */
 }
 
-.home-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
+
 
 .container {
     display: flex;
@@ -33,6 +31,7 @@ body {
 }
 
 .reg {
+    margin-top: 150px;
     width: 570px;
     background-color: #ffffff; /* White background for form container */
     padding: 30px;
@@ -42,6 +41,7 @@ body {
 
 .form {
     display: flex;
+    /* margin-top: 120px; */
     flex-direction: column; /* Stack form elements vertically */
 }
 
