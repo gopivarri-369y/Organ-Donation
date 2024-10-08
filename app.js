@@ -51,6 +51,32 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'home.html'));
 });
 
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'home.html'));
+});
+
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'about.html'));
+});
+
+app.get('/student', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'student_register.html'));
+});
+
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'student_login.html'));
+});
+
+    
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', 'public', 'html', 'owner_register.html'));
+});
+
+
+
+
 // Route to handle student registration form submission
 app.post('/submit.js', (req, res) => {
     const { firstname, lastname, gender, age, email, phone, collage } = req.body;
@@ -147,7 +173,7 @@ app.post('/login-owner', (req, res) => {
         if (results.length === 0) {
             return res.status(401).send('Invalid email or password');
         }
-
+        console.log("the results are the ",results);
         const owner = results[0];
 
         // Compare hashed password
@@ -158,14 +184,9 @@ app.post('/login-owner', (req, res) => {
         }
 
         // Render the page with owner data
+        console.log("th owner details are the ",owner);
         res.render('owner-dashboard.ejs', {
-            college: owner.collage,
-            roomRent: {
-                rent2Share: owner.rent2Share,
-                rent3Share: owner.rent3Share,
-                rent4Share: owner.rent4Share
-            },
-            roomsFor: owner.roomsFor
+            owner:owner
         });
     });
 });
@@ -184,10 +205,44 @@ app.get('/dashboard', (req, res) => {
 });
 
 
+app.post('/updated.js', (req, res) => {
+    const { id, phone, collage, hostel, roomsFor, room2Share, room3Share, room4Share, rent2Share, rent3Share, rent4Share } = req.body;
 
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/login-owner');
+    // Convert room share values to boolean
+    const room2 = Boolean(room2Share);
+    const room3 = Boolean(room3Share);
+    const room4 = Boolean(room4Share);
+
+    // SQL query for updating the specified owner's information
+    const query = `
+        UPDATE owners_info 
+        SET 
+            phone = ?, 
+            collage = ?, 
+            hostel = ?, 
+            roomsFor = ?, 
+            room2Share = ?, 
+            room3Share = ?,
+            room4Share = ?, 
+            rent2Share = ?, 
+            rent3Share = ?, 
+            rent4Share = ? 
+        WHERE id = ?`;
+
+    console.log('Executing query:', query);
+    console.log('With parameters:', [phone, collage, hostel, roomsFor, room2, room3, room4, rent2Share || 0, rent3Share || 0, rent4Share || 0, id]);
+
+    // Execute the query
+    pool.execute(query, [phone, collage, hostel, roomsFor, room2, room3, room4, 
+        rent2Share || 0, rent3Share || 0, rent4Share || 0, id], (err, results) => {
+        if (err) {
+            console.error('Error updating owner data:', err);
+            return res.status(500).send('Server Error');
+        }
+
+        // Send a success response
+        res.send('Owner data updated successfully');
+    });
 });
 
 
@@ -195,15 +250,42 @@ app.get('/logout', (req, res) => {
 
 
 
+app.post('/login-owner/update',(req,res)=>{
+    // res.send("what do you wannn update");
+    const {ownerId} = req.body;
+    console.log([ownerId]);
+    const query = `SELECT * FROM owners_info WHERE id = ? `;
+    pool.execute(query,[ownerId],async(err,results)=>{
+        if (err) {
+            console.error('Error update owner data:', err);
+            return res.status(500).send('Server Error');
+        }
+        const owner = results[0];
+        console.log("the result are the ",results);
+        res.render("owners.ejs",{
+            owner:owner
+        });
+        // res.send("hi hello");
+    })
+
+
+})
+
+app.post('/login-owner/delete',(req,res)=>{
+    res.send("what do you wannn delete");
+})
 
 
 
-
-
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login-owner');
+});
 
 
 // Route to handle owner registration form submission
 const bcrypt = require('bcrypt');
+const { name } = require('ejs');
 
 // Owner registration route
 app.post('/submit1.js', async (req, res) => {
@@ -211,7 +293,7 @@ app.post('/submit1.js', async (req, res) => {
         firstname, lastname, gender, age, email, phone, collage, Hostel,
         rooms_for, room1, room2, room3, rent_2, rent_3, rent_4, password
     } = req.body;
-
+    console.log(req.body);
     // Hash the owner's password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -229,7 +311,9 @@ app.post('/submit1.js', async (req, res) => {
             console.error('Error inserting owner data:', err);
             return res.status(500).send('Server Error');
         }
-        res.send('Owner registration successful!');
+        res.sendFile(path.join(__dirname,'static','public','html','thankyou.html'));
+        // res.sendFile
+        // D:\myproject\Hostel\static\public\html\thankyou.html
     });
 });
 
